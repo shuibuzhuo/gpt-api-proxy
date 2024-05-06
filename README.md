@@ -14,3 +14,9 @@ git clone 项目
 - 重启项目 `npx pm2 restart <id>`
 - 停止项目 `npx pm2 stop <id>`
 - 删除项目 `npx pm2 delete <id>`
+
+使用 postman 测试
+
+- 发送 POST 请求，路由 `/api/gpt/chat`
+- body 设置 JSON 格式 `{"messages": [ {  "role": "user", "content": "你好，你是谁" }  ]}`
+- headers 增加 `x-auth-token: xxx` ，值在 `.env` 中定义

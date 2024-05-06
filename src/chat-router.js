@@ -9,8 +9,14 @@ const openai = new OpenAI({
 })
 
 router.post('/api/gpt/chat', async (ctx, next) => {
-  const body = ctx.request.body;
+  // 简单的密钥
+  const authToken = ctx.get('x-auth-token') || '';
+  if (!authToken.trim() || authToken !== process.env.AUTH_TOKEN) {
+    ctx.body = 'invalid token';
+    return;
+  }
 
+  const body = ctx.request.body;
   const gptStream = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     // messages: [{ role: 'user', content: 'xxx' }],
