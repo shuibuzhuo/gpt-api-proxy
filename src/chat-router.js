@@ -22,10 +22,10 @@ router.post('/api/gpt/chat', async (ctx, next) => {
   ctx.set('Content-Type', 'text/event-stream'); // 'text/event-stream' 标识 SSE 即 Server-Sent Events
 
   for await (const chunk of gptStream) {
-    ctx.response.write(`data: ${JSON.stringify(chunk)}\n\n`) // 格式必须是 `data: xxx\n\n` ！！！
+    ctx.res.write(`data: ${JSON.stringify(chunk)}\n\n`) // 格式必须是 `data: xxx\n\n` ！！！
   }
 
-  ctx.request.on('close', () => {
+  ctx.req.on('close', () => {
     console.log('req close...')
   })
 });

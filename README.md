@@ -1,6 +1,9 @@
 # gpt-API-proxy
 
-git clone 项目，然后安装 `npm install`
+git clone 项目
+
+- 安装 `npm install`
+- 重命名 `.env.example` 为 `.env` ，并修改内容
 
 本地运行 `npm run dev`
 
