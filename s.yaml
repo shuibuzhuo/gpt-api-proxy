@@ -34,7 +34,7 @@ resources:
           - src/index.js
         port: 3002
       functionName: ${vars.functionName}
-      code: ./.next/standalone
+      code: ./
       triggers:
         - triggerName: httpTrigger
           triggerType: http
