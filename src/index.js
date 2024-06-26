@@ -47,5 +47,5 @@ app.use(async ctx => {
   ctx.body = 'chat API proxy';
 })
 
-const port = parseInt(process.env.PORT, 10) || 3002
+const port = 3002 // 和 s.yaml 的端口一致
 app.listen(port);
