@@ -36,8 +36,9 @@ git clone 项目
 
 ## 发布上线
 
-PS：暂时用手动打包上传的方式，后面再改为自动化的 CI/CD 流程
+提交 `prod-deploy` 分支到 GitHub 会触发阿里云 FC 应用“gpt-api-proxy”重新部署 https://fcnext.console.aliyun.com/applications
 
-- 修改 `.env` 文件，符合线上环境
-- 在代码包的根目录下执行 `zip -rq -y code.zip ./` 命令进行打包
-- 上传到阿里云函数 https://fcnext.console.aliyun.com/cn-hongkong/functions
+注意，如有环境变量 `.env` 文件的改动
+
+- 在阿里云 FC 应用“流水线配置”中，增加或修改环境变量 https://fcnext.console.aliyun.com/applications/gpt-api-proxy/env/default?tab=flowManagement
+- 修改 `s.yaml` 文件，其中有动态创建线上 `.env` 文件的代码
