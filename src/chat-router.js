@@ -5,7 +5,8 @@ require("dotenv").config();
 const router = new Router();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  baseURL: 'https://api.deepseek.com',
+  apiKey: process.env.DEEP_SEEK_API_KEY
 });
 
 router.get("/api/gpt/chat", async (ctx, next) => {
@@ -50,10 +51,9 @@ router.get("/api/gpt/chat", async (ctx, next) => {
   }
 
   try {
-    console.log('request openai...')
     // request GPT API
     gptStream = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      "model": "deepseek-chat",
       // max_tokens: 100,
       stream: true, // stream
       stream_options: { include_usage: true },
@@ -75,7 +75,7 @@ router.get("/api/gpt/chat", async (ctx, next) => {
   for await (const chunk of gptStream) {
     const { choices = [], usage } = chunk;
 
-    if (choices.length === 0) {
+    if (choices.length === 0 || usage != null) {
       ctx.res.write(`data: ${JSON.stringify({ usage })}\n\n`);
 
       // 结束
@@ -85,6 +85,7 @@ router.get("/api/gpt/chat", async (ctx, next) => {
 
     if (choices.length > 0) {
       const content = choices[0].delta.content;
+      console.log('content...', content)
       if (content != null) {
         const data = { c: content }
         ctx.res.write(`data: ${JSON.stringify(data)}\n\n`)
