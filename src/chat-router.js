@@ -85,7 +85,6 @@ router.get("/api/gpt/chat", async (ctx, next) => {
 
     if (choices.length > 0) {
       const content = choices[0].delta.content;
-      console.log('content...', content)
       if (content != null) {
         const data = { c: content }
         ctx.res.write(`data: ${JSON.stringify(data)}\n\n`)
