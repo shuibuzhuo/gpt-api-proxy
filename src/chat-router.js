@@ -47,13 +47,22 @@ router.get("/api/gpt/chat", async (ctx, next) => {
     return;
   }
 
-  try {
-    const { openai, key } = getOpenAIInstance();
-    console.log('cur openai key: ', `${key.slice(0, 15)}***`)
+  // get openai instance
+  const instance = getOpenAIInstance()
+  if (instance == null) {
+    const errMsg = 'openai instance is null'
+    console.log('error: ', errMsg)
+    ctx.res.write(`data: [ERROR]${errMsg}\n\n`)
+    return 
+  }
+  
+  const formatKey = instance.key.slice(0, 20) + '***'
+  console.log('cur openai key: ', formatKey)
 
+  try {
     // request GPT API
     gptStream = await openai.chat.completions.create({
-      "model": "deepseek-chat",
+      model: instance.model,
       max_tokens: 600,
       stream: true, // stream
       stream_options: { include_usage: true },
