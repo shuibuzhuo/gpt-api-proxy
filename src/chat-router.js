@@ -1,13 +1,10 @@
-const OpenAI = require("openai");
+
 const Router = require("koa-router");
-require("dotenv").config();
+const { getOpenAIInstance } = require("./lib/openai");
 
 const router = new Router();
 
-const openai = new OpenAI({
-  baseURL: 'https://api.deepseek.com',
-  apiKey: process.env.DEEP_SEEK_API_KEY
-});
+
 
 router.get("/api/gpt/chat", async (ctx, next) => {
   ctx.status = 200;
@@ -51,10 +48,13 @@ router.get("/api/gpt/chat", async (ctx, next) => {
   }
 
   try {
+    const { openai, key } = getOpenAIInstance();
+    console.log('cur openai key: ', `${key.slice(0, 15)}***`)
+
     // request GPT API
     gptStream = await openai.chat.completions.create({
       "model": "deepseek-chat",
-      // max_tokens: 100,
+      max_tokens: 600,
       stream: true, // stream
       stream_options: { include_usage: true },
       ...option,
@@ -62,7 +62,7 @@ router.get("/api/gpt/chat", async (ctx, next) => {
   } catch (error) {
     const errMsg = error.message || "request openapi API error";
     console.log("error: ", errMsg);
-    ctx.res.write(`data: [ERROR]${error.message}\n\n`);
+    ctx.res.write(`data: [ERROR]${errMsg}\n\n`);
     return;
   }
 
