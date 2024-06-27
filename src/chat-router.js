@@ -61,7 +61,7 @@ router.get("/api/gpt/chat", async (ctx, next) => {
 
   try {
     // request GPT API
-    gptStream = await openai.chat.completions.create({
+    gptStream = await instance.openai.chat.completions.create({
       model: instance.model,
       max_tokens: 600,
       stream: true, // stream
