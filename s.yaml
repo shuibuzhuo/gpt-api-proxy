@@ -12,6 +12,8 @@ resources:
         - run: |
             touch .env
             echo "OPENAI_API_KEY=${env(OPENAI_API_KEY)}" >> .env
+            echo "DEEP_SEEK_API_KEY=${env(DEEP_SEEK_API_KEY)}" >> .env
+            echo "DEEP_BRICKS_API_KEY=${env(DEEP_BRICKS_API_KEY)}" >> .env
             echo "AUTH_TOKEN=${env(AUTH_TOKEN)}" >> .env
             echo "CORS_ORIGIN=${env(CORS_ORIGIN)}" >> .env
         - run: |
