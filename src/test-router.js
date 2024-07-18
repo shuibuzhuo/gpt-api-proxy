@@ -8,7 +8,6 @@ router.get("/api/test/send-email", async (ctx, next) => {
   const query = ctx.query || {};
 
   const testToken = query["test-token"] || "";
-  console.log("testToken", testToken);
 
   if (testToken !== "koo*189") {
     ctx.body = "invalid token";

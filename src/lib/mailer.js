@@ -13,7 +13,6 @@ const config = {
 const transporter = nodemailer.createTransport(config)
 
 async function sendEmail (opt = {}) {
-  console.log('sendEmail...')
   const { subject = '', text = ''} = opt;
   if (!subject) {
     console.error('subject required');
@@ -26,8 +25,6 @@ async function sendEmail (opt = {}) {
     to: process.env.EMAIL_TO,
     text
   }
-
-  console.log('mainConfig...', mailConfig)
 
   const res = await transporter.sendMail(mailConfig)
   console.log('Message sent: %s', res.messageId)
