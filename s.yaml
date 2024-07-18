@@ -16,6 +16,11 @@ resources:
             echo "DEEP_BRICKS_API_KEY=${env(DEEP_BRICKS_API_KEY)}" >> .env
             echo "AUTH_TOKEN=${env(AUTH_TOKEN)}" >> .env
             echo "CORS_ORIGIN=${env(CORS_ORIGIN)}" >> .env
+            echo "EMAIL_HOST=${env(EMAIL_HOST)}" >> .env
+            echo "EMAIL_PORT=${env(EMAIL_PORT)}" >> .env
+            echo "EMAIL_USER=${env(EMAIL_USER)}" >> .env
+            echo "EMAIL_PASSWORD=${env(EMAIL_PASSWORD)}" >> .env
+            echo "EMAIL_TO=${env(EMAIL_TO)}" >> .env
         - run: |
             export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH
             npm install
