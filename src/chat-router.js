@@ -1,12 +1,12 @@
 
 const Router = require("koa-router");
 const { getOpenAIInstance } = require("./lib/openai");
+const { sendEmail } = require('./lib/mailer');
 
 const router = new Router();
 
-
-
 router.get("/api/gpt/chat", async (ctx, next) => {
+  console.log('request...')
   ctx.status = 200;
   ctx.set("Content-Type", "text/event-stream"); // 'text/event-stream' 标识 SSE 即 Server-Sent Events
 
@@ -72,6 +72,13 @@ router.get("/api/gpt/chat", async (ctx, next) => {
     const errMsg = error.message || "request openapi API error";
     console.log("error: ", errMsg);
     ctx.res.write(`data: [ERROR]${errMsg}\n\n`);
+
+    // 发送邮件报警
+    sendEmail({
+      subject: `OpenAI API request error, key ${formatKey}`,
+      text: errMsg
+    })
+
     return;
   }
 
