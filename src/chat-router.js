@@ -19,7 +19,7 @@ router.get("/api/gpt/chat", async (ctx, next) => {
     console.log("try abort...");
     if (!ctx.gptStreamDone) {
       console.log("abort request...");
-      gptStream.controller.abort();
+      if (gptStream) gptStream.controller.abort();
       console.log("abort ok~");
     }
   });
