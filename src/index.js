@@ -2,6 +2,7 @@ const Koa = require('koa');
 const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
 const chatRouter = require('./chat-router')
+const testRouter = require('./test-router');
 require('dotenv').config()
 
 const app = new Koa();
@@ -24,11 +25,11 @@ app.use(cors({
 app.use(bodyParser());
 
 app.use(chatRouter.routes()).use(chatRouter.allowedMethods());
+app.use(testRouter.routes()).use(testRouter.allowedMethods())
 
 // 定义一个中间件函数，用于捕获错误
 function errorMiddleware(ctx, next) {
   try {
-	  console.log('next...')
     // 调用下一个中间件函数
     next();
   } catch (error) {
