@@ -73,6 +73,8 @@ router.get("/api/gpt/chat", async (ctx, next) => {
     console.log("error: ", errMsg);
     ctx.res.write(`data: [ERROR]${errMsg}\n\n`);
 
+    // 记录 error，并发送邮件
+    instance.isError = true
     // 发送邮件报警
     sendEmail({
       subject: `OpenAI API request error, key ${formatKey}`,

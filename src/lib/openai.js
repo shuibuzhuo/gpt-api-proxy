@@ -50,7 +50,7 @@ function getOpenAIInstance() {
   console.log('instance error and removed from list, key: ', instance.key)
   instanceList = instanceList.filter((item) => item.key !== instance.key)
   index = 0 // 重置 index
-  return getOpenAIInstance()
+  return getOpenAIInstance() // 重新获取
 }
 
 module.exports = {
